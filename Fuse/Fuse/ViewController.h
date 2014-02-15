@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <PebbleKit/PebbleKit.h>
 @interface ViewController : UIViewController
 
 @end
