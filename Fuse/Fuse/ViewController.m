@@ -36,6 +36,13 @@ static NSString * const CardsServiceType = @"cards-service";
     
 }
 
+- (void)browser:(MCNearbyServiceBrowser *)browser lostPeer:(MCPeerID *)peerID
+{
+    
+}
+
+
+
 
 #pragma mark - App Messages
 
@@ -62,6 +69,15 @@ static NSString * const CardsServiceType = @"cards-service";
     
     
     [self.connectedWatch appMessagesAddReceiveUpdateHandler:^BOOL(PBWatch *watch, NSDictionary *update) {
+        
+        if ([self.lastContactName length] == 0)
+        {
+            NSLog(@"No contacts found in area.");
+            return NO;
+        }
+        NSLog(@"recieve %@", self.lastContactName);
+        NSLog(@"%@", [update allKeys]);
+        NSLog(@"%@", update[@1]);
         
         
         NSDictionary *pebbleUpdate = @{@"Name": self.lastContactName };

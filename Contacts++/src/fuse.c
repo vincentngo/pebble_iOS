@@ -44,7 +44,7 @@ static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
   DictionaryIterator *iter;
   app_message_outbox_begin(&iter);
 
-  Tuplet value = TupletInteger(1, 42);
+  Tuplet value = TupletInteger(1, "Getting Contact");
   dict_write_tuplet(iter, &value);
 
   app_message_outbox_send();
