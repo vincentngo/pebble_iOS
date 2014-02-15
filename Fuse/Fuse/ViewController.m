@@ -76,11 +76,9 @@ static NSString * const CardsServiceType = @"cards-service";
             return NO;
         }
         NSLog(@"recieve %@", self.lastContactName);
-        NSLog(@"%@", [update allKeys]);
-        NSLog(@"%@", update[@1]);
         
-        
-        NSDictionary *pebbleUpdate = @{@"Name": self.lastContactName };
+//        NSDictionary *pebbleUpdate = @{@"Name": self.lastContactName };
+        NSDictionary *pebbleUpdate = @{@1: self.lastContactName };
         [self.connectedWatch appMessagesPushUpdate:pebbleUpdate onSent:^(PBWatch *watch, NSDictionary *update, NSError *error) {
             
             if(!error)

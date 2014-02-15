@@ -9,7 +9,7 @@ enum {
 
 //AppSync Callbacks
 void out_sent_handler(DictionaryIterator *sent, void *context) {
-   text_layer_set_text(text_layer, "Sent");
+   //text_layer_set_text(text_layer, "Sent");
  }
 
 
@@ -44,7 +44,8 @@ static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
   DictionaryIterator *iter;
   app_message_outbox_begin(&iter);
 
-  Tuplet value = TupletInteger(1, "Getting Contact");
+  Tuplet value = TupletInteger(1, 42);
+  // Tuplet value = TupletCString("testString", "test23213213");
   dict_write_tuplet(iter, &value);
 
   app_message_outbox_send();
