@@ -30,5 +30,10 @@ MCSessionDelegate, MCNearbyServiceBrowserDelegate, MCBrowserViewControllerDelega
 @property (strong, nonatomic) NSString * resultMsg;
 
 
+// Example peerid.displayName = "Carlos Folgar|5408086728"
+@property (strong, nonatomic) NSString * lastPeerInfo;
+
+@property (strong, nonatomic) NSString * lastContactName;
+@property (strong, nonatomic) NSString * lastContactPhone;
 
 @end

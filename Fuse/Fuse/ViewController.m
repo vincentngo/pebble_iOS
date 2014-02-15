@@ -26,7 +26,14 @@ static NSString * const CardsServiceType = @"cards-service";
 
 - (void)browser:(MCNearbyServiceBrowser *)browser foundPeer:(MCPeerID *)peerID withDiscoveryInfo:(NSDictionary *)info
 {
-    NSLog(@"browser found peer %@ with discovery info : %@", peerID.displayName, info);
+    self.lastPeerInfo = peerID.displayName;
+    NSArray *parts = [self.lastPeerInfo componentsSeparatedByString:@"|"];
+    if (parts.count == 2)
+    {
+        self.lastContactName = parts[0];
+        self.lastContactPhone = parts[1];
+    }
+    
 }
 
 
@@ -55,7 +62,23 @@ static NSString * const CardsServiceType = @"cards-service";
     
     
     [self.connectedWatch appMessagesAddReceiveUpdateHandler:^BOOL(PBWatch *watch, NSDictionary *update) {
-        NSLog(@"Received message: %@", update);
+        
+        
+        NSDictionary *pebbleUpdate = @{@"Name": self.lastContactName };
+        [self.connectedWatch appMessagesPushUpdate:pebbleUpdate onSent:^(PBWatch *watch, NSDictionary *update, NSError *error) {
+            
+            if(!error)
+            {
+                NSLog(@"Succesfuly sent to the pebble!");
+            }
+            else
+            {
+                NSLog(@"Failed to send to the Pebble");
+            }
+            
+        }];
+        
+        
         return YES;
     }];
     
@@ -72,7 +95,7 @@ static NSString * const CardsServiceType = @"cards-service";
     
     NSLog(@"ViewController.m setup method called because awakeFromNib.");
     // setup peer ID
-    self.myPeerID = [[MCPeerID alloc] initWithDisplayName:[[UIDevice currentDevice] name]];
+    self.myPeerID = [[MCPeerID alloc] initWithDisplayName:@"Vincent Ngo|123456789"];
     
     // setup session
     self.mySession = [[MCSession alloc] initWithPeer:self.myPeerID];
@@ -110,18 +133,7 @@ static NSString * const CardsServiceType = @"cards-service";
     NSDictionary *update = @{ @(0):[NSNumber numberWithUint8:42],
                               @(1):@"a string" };
     
-    [self.connectedWatch appMessagesPushUpdate:update onSent:^(PBWatch *watch, NSDictionary *update, NSError *error) {
-        
-        if(!error)
-        {
-             NSLog(@".... Success");
-        }
-        else
-        {
-            NSLog(@".... fail");
-        }
 
-    }];
 
 }
 
