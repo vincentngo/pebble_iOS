@@ -10,11 +10,10 @@
 #import "AppDelegate.h"
 
 @interface ViewController ()
-- (IBAction)test1:(id)sender;
-- (IBAction)test2:(id)sender;
 
 @property (nonatomic, strong) AppDelegate *appDelegate;
 @property (nonatomic, strong) PBWatch *connectedWatch;
+@property (nonatomic, strong) NSDictionary *personalProfile;
 
 @end
 
@@ -27,11 +26,15 @@ static NSString * const CardsServiceType = @"cards-service";
 - (void)browser:(MCNearbyServiceBrowser *)browser foundPeer:(MCPeerID *)peerID withDiscoveryInfo:(NSDictionary *)info
 {
     self.lastPeerInfo = peerID.displayName;
+    NSLog(@"displayName: %@", self.lastPeerInfo);
     NSArray *parts = [self.lastPeerInfo componentsSeparatedByString:@"|"];
     if (parts.count == 2)
     {
         self.lastContactName = parts[0];
         self.lastContactPhone = parts[1];
+        
+        NSLog(@"lastContactName: %@", self.lastContactName);
+                NSLog(@"lastContactPhone: %@", self.lastContactPhone);
     }
     
 }
@@ -106,10 +109,14 @@ static NSString * const CardsServiceType = @"cards-service";
 
 -(void)setup
 {
+    self.personalProfile = [[NSUserDefaults standardUserDefaults] objectForKey:@"profile"];
+    NSLog(@"personalProfile: %@", self.personalProfile);
+    
+    NSString *displayName = [NSString stringWithFormat:@"%@|%@", self.personalProfile[@"name"], self.personalProfile[@"phoneNumber"]];
     
     NSLog(@"ViewController.m setup method called because awakeFromNib.");
     // setup peer ID
-    self.myPeerID = [[MCPeerID alloc] initWithDisplayName:@"Vincent Ngo|123456789"];
+    self.myPeerID = [[MCPeerID alloc] initWithDisplayName:displayName];
     
     // setup session
     self.mySession = [[MCSession alloc] initWithPeer:self.myPeerID];

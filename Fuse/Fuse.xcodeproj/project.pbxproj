@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10B0FC1618B0298D0054DEF2 /* FirstTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B0FC1518B0298D0054DEF2 /* FirstTimeViewController.m */; };
 		10D0416C18AF4EA3006A7DFE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10D0416B18AF4EA3006A7DFE /* Foundation.framework */; };
 		10D0416E18AF4EA3006A7DFE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10D0416D18AF4EA3006A7DFE /* CoreGraphics.framework */; };
 		10D0417018AF4EA3006A7DFE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10D0416F18AF4EA3006A7DFE /* UIKit.framework */; };
@@ -43,6 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		10B0FC1418B0298D0054DEF2 /* FirstTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FirstTimeViewController.h; path = ../FirstTimeViewController.h; sourceTree = "<group>"; };
+		10B0FC1518B0298D0054DEF2 /* FirstTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FirstTimeViewController.m; path = ../FirstTimeViewController.m; sourceTree = "<group>"; };
 		10D0416818AF4EA3006A7DFE /* Fuse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fuse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10D0416B18AF4EA3006A7DFE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		10D0416D18AF4EA3006A7DFE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -148,6 +151,8 @@
 		10D0417118AF4EA3006A7DFE /* Fuse */ = {
 			isa = PBXGroup;
 			children = (
+				10B0FC1418B0298D0054DEF2 /* FirstTimeViewController.h */,
+				10B0FC1518B0298D0054DEF2 /* FirstTimeViewController.m */,
 				10D0417A18AF4EA3006A7DFE /* AppDelegate.h */,
 				10D0417B18AF4EA3006A7DFE /* AppDelegate.m */,
 				10D0417D18AF4EA3006A7DFE /* Main.storyboard */,
@@ -295,6 +300,7 @@
 			files = (
 				10D0418218AF4EA3006A7DFE /* ViewController.m in Sources */,
 				10D0417C18AF4EA3006A7DFE /* AppDelegate.m in Sources */,
+				10B0FC1618B0298D0054DEF2 /* FirstTimeViewController.m in Sources */,
 				10D0417818AF4EA3006A7DFE /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
