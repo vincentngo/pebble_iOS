@@ -21,7 +21,6 @@
 		10D0418D18AF4EA3006A7DFE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10D0416F18AF4EA3006A7DFE /* UIKit.framework */; };
 		10D0419518AF4EA3006A7DFE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 10D0419318AF4EA3006A7DFE /* InfoPlist.strings */; };
 		10D0419718AF4EA3006A7DFE /* FuseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 10D0419618AF4EA3006A7DFE /* FuseTests.m */; };
-		10D041A118AF5115006A7DFE /* PebbleKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10D041A018AF5115006A7DFE /* PebbleKit.framework */; };
 		10D041A318AF5134006A7DFE /* PebbleVendor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10D041A218AF5134006A7DFE /* PebbleVendor.framework */; };
 		10D041A518AF52A7006A7DFE /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10D041A418AF52A7006A7DFE /* ExternalAccessory.framework */; };
 		10D041A718AF52B6006A7DFE /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 10D041A618AF52B6006A7DFE /* libz.dylib */; };
@@ -29,6 +28,8 @@
 		10D041AB18AF52CE006A7DFE /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10D041AA18AF52CE006A7DFE /* CoreMotion.framework */; };
 		10D041AD18AF52D8006A7DFE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10D041AC18AF52D8006A7DFE /* CFNetwork.framework */; };
 		10D041AF18AF52E3006A7DFE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10D041AE18AF52E3006A7DFE /* MessageUI.framework */; };
+		3D97827318AF6AF50074C803 /* PebbleKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D97827218AF6AF50074C803 /* PebbleKit.framework */; };
+		3D97827618AF6DEB0074C803 /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D97827518AF6DEB0074C803 /* MultipeerConnectivity.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,7 +62,6 @@
 		10D0419218AF4EA3006A7DFE /* FuseTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FuseTests-Info.plist"; sourceTree = "<group>"; };
 		10D0419418AF4EA3006A7DFE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		10D0419618AF4EA3006A7DFE /* FuseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FuseTests.m; sourceTree = "<group>"; };
-		10D041A018AF5115006A7DFE /* PebbleKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PebbleKit.framework; sourceTree = "<group>"; };
 		10D041A218AF5134006A7DFE /* PebbleVendor.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PebbleVendor.framework; sourceTree = "<group>"; };
 		10D041A418AF52A7006A7DFE /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		10D041A618AF52B6006A7DFE /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -69,6 +69,8 @@
 		10D041AA18AF52CE006A7DFE /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		10D041AC18AF52D8006A7DFE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		10D041AE18AF52E3006A7DFE /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		3D97827218AF6AF50074C803 /* PebbleKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PebbleKit.framework; sourceTree = "<group>"; };
+		3D97827518AF6DEB0074C803 /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D97827618AF6DEB0074C803 /* MultipeerConnectivity.framework in Frameworks */,
 				10D041AF18AF52E3006A7DFE /* MessageUI.framework in Frameworks */,
 				10D041AD18AF52D8006A7DFE /* CFNetwork.framework in Frameworks */,
 				10D041AB18AF52CE006A7DFE /* CoreMotion.framework in Frameworks */,
@@ -84,9 +87,9 @@
 				10D041A518AF52A7006A7DFE /* ExternalAccessory.framework in Frameworks */,
 				10D0416E18AF4EA3006A7DFE /* CoreGraphics.framework in Frameworks */,
 				10D041A318AF5134006A7DFE /* PebbleVendor.framework in Frameworks */,
-				10D041A118AF5115006A7DFE /* PebbleKit.framework in Frameworks */,
 				10D0417018AF4EA3006A7DFE /* UIKit.framework in Frameworks */,
 				10D0416C18AF4EA3006A7DFE /* Foundation.framework in Frameworks */,
+				3D97827318AF6AF50074C803 /* PebbleKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +128,8 @@
 		10D0416A18AF4EA3006A7DFE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3D97827518AF6DEB0074C803 /* MultipeerConnectivity.framework */,
+				3D97827218AF6AF50074C803 /* PebbleKit.framework */,
 				10D041AE18AF52E3006A7DFE /* MessageUI.framework */,
 				10D041AC18AF52D8006A7DFE /* CFNetwork.framework */,
 				10D041AA18AF52CE006A7DFE /* CoreMotion.framework */,
@@ -132,7 +137,6 @@
 				10D041A618AF52B6006A7DFE /* libz.dylib */,
 				10D041A418AF52A7006A7DFE /* ExternalAccessory.framework */,
 				10D041A218AF5134006A7DFE /* PebbleVendor.framework */,
-				10D041A018AF5115006A7DFE /* PebbleKit.framework */,
 				10D0416B18AF4EA3006A7DFE /* Foundation.framework */,
 				10D0416D18AF4EA3006A7DFE /* CoreGraphics.framework */,
 				10D0416F18AF4EA3006A7DFE /* UIKit.framework */,
@@ -232,6 +236,7 @@
 				ORGANIZATIONNAME = "Vincent Ngo";
 				TargetAttributes = {
 					10D0416718AF4EA3006A7DFE = {
+						DevelopmentTeam = 3AC2RN6H7L;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -417,15 +422,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/vincentngo/Documents/Git\\ Repositories/pebble_iOS/Fuse",
+					/Users/cfol1032/penapps/pebble_iOS/Fuse,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Fuse/Fuse-Prefix.pch";
 				INFOPLIST_FILE = "Fuse/Fuse-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -435,15 +444,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/vincentngo/Documents/Git\\ Repositories/pebble_iOS/Fuse",
+					/Users/cfol1032/penapps/pebble_iOS/Fuse,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Fuse/Fuse-Prefix.pch";
 				INFOPLIST_FILE = "Fuse/Fuse-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
