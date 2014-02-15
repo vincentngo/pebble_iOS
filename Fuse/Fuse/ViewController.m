@@ -7,8 +7,13 @@
 //
 
 #import "ViewController.h"
+#import "AppDelegate.h"
 
 @interface ViewController ()
+- (IBAction)test1:(id)sender;
+- (IBAction)test2:(id)sender;
+
+@property (nonatomic, strong) AppDelegate *appDelegate;
 
 @end
 
@@ -17,7 +22,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+	self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -26,4 +33,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)test1:(id)sender {
+}
+
+- (IBAction)test2:(id)sender {
+}
 @end

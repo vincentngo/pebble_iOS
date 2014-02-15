@@ -12,7 +12,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    
+    //NOTE: PBPebbleCentral is a singleton.
+    self.connectedWatch = [[PBPebbleCentral defaultCentral] lastConnectedWatch];
+    NSLog(@"Last connected watch: %@", self.connectedWatch);
+    [[PBPebbleCentral defaultCentral] setDelegate:self];
+
+    
+    
+    
     return YES;
 }
 							
@@ -42,5 +50,35 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+#pragma mark - PBPebbleCentral Delegate
+
+//TODO: get the list of connected Pebbles at startup, use [[PBPebbleCentral defaultPebbleCentral] connectedWatches] or lastConnectedWatch.
+
+- (void)pebbleCentral:(PBPebbleCentral*)central watchDidConnect:(PBWatch*)watch isNew:(BOOL)isNew {
+    
+    //Check if pebble has connected for the first time.
+    if (isNew)
+    {
+        //Maybe tell them to set up the contacts.
+    }
+    
+    NSLog(@"Pebble connected: %@", [watch name]);
+    self.connectedWatch = watch;
+    
+}
+
+- (void)pebbleCentral:(PBPebbleCentral*)central watchDidDisconnect:(PBWatch*)watch {
+    NSLog(@"Pebble disconnected: %@", [watch name]);
+    
+    if (self.connectedWatch == watch || [watch isEqual:self.connectedWatch]) {
+        self.connectedWatch = nil;
+    }
+    
+}
+
+
+
+
 
 @end
