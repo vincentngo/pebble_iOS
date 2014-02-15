@@ -1,0 +1,17 @@
+{
+  "uuid": "39b3d511-5de7-44b6-a399-be4b138b83ec",
+  "shortName": "fuse",
+  "longName": "fuse",
+  "companyName": "MakeAwesomeHappen",
+  "versionCode": 1,
+  "versionLabel": "1.0.0",
+  "watchapp": {
+    "watchface": false
+  },
+  "appKeys": {
+    "dummy": 0
+  },
+  "resources": {
+    "media": []
+  }
+}
