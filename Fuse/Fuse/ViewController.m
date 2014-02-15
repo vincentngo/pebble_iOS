@@ -14,6 +14,7 @@
 - (IBAction)test2:(id)sender;
 
 @property (nonatomic, strong) AppDelegate *appDelegate;
+@property (nonatomic, strong) PBWatch *connectedWatch;
 
 @end
 
@@ -29,11 +30,34 @@ static NSString * const CardsServiceType = @"cards-service";
 }
 
 
+#pragma mark - App Messages
+
+
+
+#pragma mark - AppSync
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    self.connectedWatch = self.appDelegate.connectedWatch;
     
+    //Check if Launch was sucessful
+    [self.connectedWatch appMessagesLaunch:^(PBWatch *watch, NSError *error) {
+            if (!error) {
+                NSLog(@"Successfully launched app.");
+            }
+            else {
+                NSLog(@"Error launching app - Error: %@", error);
+            }
+        }
+     ];
+    
+    
+    [self.connectedWatch appMessagesAddReceiveUpdateHandler:^BOOL(PBWatch *watch, NSDictionary *update) {
+        NSLog(@"Received message: %@", update);
+        return YES;
+    }];
     
 }
 
@@ -75,7 +99,30 @@ static NSString * const CardsServiceType = @"cards-service";
     [self setup];
 }
 
+
+
+/*
+ 
+ To communicate between the mobile app and your watchapp, you use the appMessagePushUpdate:onSent: and appMessagesAddReceiveUpdateHandler: methods discussed in this section.
+ */
 - (IBAction)test1:(id)sender {
+    
+    NSDictionary *update = @{ @(0):[NSNumber numberWithUint8:42],
+                              @(1):@"a string" };
+    
+    [self.connectedWatch appMessagesPushUpdate:update onSent:^(PBWatch *watch, NSDictionary *update, NSError *error) {
+        
+        if(!error)
+        {
+             NSLog(@".... Success");
+        }
+        else
+        {
+            NSLog(@".... fail");
+        }
+
+    }];
+
 }
 
 - (IBAction)test2:(id)sender {
@@ -84,7 +131,7 @@ static NSString * const CardsServiceType = @"cards-service";
 
 -(void)viewWillAppear:(BOOL)animated
 {
-//    [self.browseButton addTarget:self action:@selector(showBrowserVC) forControlEvents:UIControlEventTouchUpInside];
+
     [self.sendButton addTarget:self action:@selector(sendText) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -113,24 +160,6 @@ static NSString * const CardsServiceType = @"cards-service";
     NSError *error;
     [self.mySession sendData:data toPeers:[self.mySession connectedPeers] withMode:MCSessionSendDataUnreliable error:&error];
 }
-
-// presents the VC that shows nearby beacons
-//-(void) showBrowserVC
-//{
-//    NSLog(@"attempting to showBrowserVC");
-//    [self presentViewController:self.browserVC animated:YES completion:nil];
-//}
-
-// dismisses VC presented above
-//- (void) dismissBrowserVC { [self.browserVC dismissViewControllerAnimated:YES completion:nil]; }
-
-#pragma marks MCBrowserViewControllerDelegate
-
-// Notifies the delegate, when the user taps the done button
-//- (void)browserViewControllerDidFinish:(MCBrowserViewController *)browserViewController { [self dismissBrowserVC]; }
-
-// Notifies delegate that the user taps the cancel button.
-//- (void)browserViewControllerWasCancelled:(MCBrowserViewController *)browserViewController { [self dismissBrowserVC]; }
 
 #pragma marks MCSessionDelegate
 // Remote peer changed state

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <PebbleKit/PebbleKit.h>
 #import <MultipeerConnectivity/MultipeerConnectivity.h>
 
 @interface ViewController : UIViewController <MCNearbyServiceAdvertiserDelegate, UIActionSheetDelegate,

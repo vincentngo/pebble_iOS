@@ -17,9 +17,24 @@
     self.connectedWatch = [[PBPebbleCentral defaultCentral] lastConnectedWatch];
     NSLog(@"Last connected watch: %@", self.connectedWatch);
     [[PBPebbleCentral defaultCentral] setDelegate:self];
+    
+    //Setup UUID for companion app for pebble.
+    uuid_t myAppUUIDbytes;
+    NSUUID *myAppUUID = [[NSUUID alloc] initWithUUIDString:@"39b3d511-5de7-44b6-a399-be4b138b83ec"];
+    [myAppUUID getUUIDBytes:myAppUUIDbytes];
+    [[PBPebbleCentral defaultCentral] setAppUUID:[NSData dataWithBytes:myAppUUIDbytes length:16]];
 
+    //Check if pebble supports app messages.
+    [self.connectedWatch appMessagesGetIsSupported:^(PBWatch *watch, BOOL isAppMessagesSupported) {
+        if (isAppMessagesSupported) {
+            NSLog(@"This Pebble supports app message!");
+        }
+        else {
+            NSLog(@":( - This Pebble does not support app message!");
+        }
+    }];
     
-    
+
     
     return YES;
 }
@@ -60,7 +75,7 @@
     //Check if pebble has connected for the first time.
     if (isNew)
     {
-        //Maybe tell them to set up the contacts.
+        NSLog(@"First-time new connections");
     }
     
     NSLog(@"Pebble connected: %@", [watch name]);
