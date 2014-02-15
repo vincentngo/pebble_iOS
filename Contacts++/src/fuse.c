@@ -25,15 +25,13 @@ void out_sent_handler(DictionaryIterator *sent, void *context) {
 
 
 static void in_received_handler(DictionaryIterator *iter, void *context) {
-
   // Check for fields you expect to receive
-  text_layer_set_text(text_layer, "Blah");
-  // Tuple *text_tuple = dict_find(iter, AKEY_TEXT);
+  Tuple *text_tuple = dict_find(iter, AKEY_TEXT);
 
   // Act on the found fields received
-  // if (text_tuple) {
-  //   APP_LOG(APP_LOG_LEVEL_DEBUG, "Text: %s", text_tuple->value->cstring);
-  // }
+  if (text_tuple) {
+    text_layer_set_text(text_layer, text_tuple->value->cstring);
+  }
 
 }
 
