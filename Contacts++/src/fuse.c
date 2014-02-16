@@ -68,6 +68,18 @@ void out_sent_handler(DictionaryIterator *sent, void *context) {
  void in_received_handler(DictionaryIterator *iter, void *context) {
   // Check for fields you expect to receive
 
+  // if we aksed for peers, and received none
+  Tuple *noneFoundTuple = dict_find(iter, -1);
+  if (noneFoundTuple)
+  {
+    firstPeerName = "";
+    secondPeerName = "";
+    thirdPeerName = "";
+    fourthPeerName = "";
+    menu_layer_reload_data(mainMenu);
+    return;
+  }
+
   // This is for the case where we get an OK from iOS after doing a mainMenu_select_click
   Tuple *zeroTuple = dict_find(iter, 0);
   if (zeroTuple)

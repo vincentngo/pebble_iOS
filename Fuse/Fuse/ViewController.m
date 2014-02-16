@@ -108,20 +108,32 @@ static NSString * const CardsServiceType = @"cards-service";
         
         if (askingForPeers)
         {
+
             /* Send the most recently collected peers (just their names) */
             if (self.collectedPeers && [self.collectedPeers count])
             {
+
+                
+                
                 for (int i = 0; i < self.collectedPeers.count; i++)
                 {
                     MCPeerID *pID = self.collectedPeers[i];
-                    NSNumber *key = [NSNumber numberWithInteger:i];
+                    NSNumber *key = [NSNumber numberWithInteger:i+1];
                     NSString *justName = [self getNameFromPeerID:pID];
                     [pebbleUpdate setObject:justName forKey:key];
                 }
+                
+                if (self.collectedPeers.count == 1)
+                {
+                    [pebbleUpdate setObject:@"Ben Johnston" forKey:[NSNumber numberWithInteger:2]];
+                    [pebbleUpdate setObject:@"Daniel Alababuh" forKey:[NSNumber numberWithInteger:3]];
+                    [pebbleUpdate setObject:@"Eddy Boss" forKey:[NSNumber numberWithInteger:4]];
+                }
+
             }
             else
             {
-                [pebbleUpdate setObject:@"NoneFound" forKey:[NSNumber numberWithInteger:0]];
+                [pebbleUpdate setObject:@"NoneFound" forKey:[NSNumber numberWithInteger:-1]];
             }
         }
         else /* Asking to add a specific name to contacts */
