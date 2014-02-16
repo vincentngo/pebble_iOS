@@ -19,7 +19,7 @@
             </objects>
             <point key="canvasLocation" x="-322" y="-167"/>
         </scene>
-        <!--First Time View Controller-->
+        <!--First Time View Controller - Register-->
         <scene sceneID="vjV-Xk-6gA">
             <objects>
                 <viewController id="yva-Ke-IfG" customClass="FirstTimeViewController" sceneMemberID="viewController">
@@ -57,7 +57,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="q1S-hs-sR6"/>
+                    <navigationItem key="navigationItem" title="Register" id="q1S-hs-sR6"/>
                     <connections>
                         <outlet property="textFieldName" destination="aAN-hz-JbC" id="Wnb-ym-6ft"/>
                         <outlet property="textFieldNumber" destination="aZn-d6-rR8" id="YCG-AG-o2q"/>
@@ -67,7 +67,7 @@
             </objects>
             <point key="canvasLocation" x="141" y="-167"/>
         </scene>
-        <!--View Controller-->
+        <!--View Controller - Contacts++-->
         <scene sceneID="QFf-j6-p4R">
             <objects>
                 <tableViewController id="iTQ-gR-bvX" customClass="ViewController" sceneMemberID="viewController">
@@ -106,7 +106,7 @@
                             <outlet property="delegate" destination="iTQ-gR-bvX" id="2Dj-MF-Fuk"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="J9b-de-1J1"/>
+                    <navigationItem key="navigationItem" title="Contacts++" id="J9b-de-1J1"/>
                     <connections>
                         <outlet property="tableView" destination="trz-to-D0n" id="Heb-uz-Pp7"/>
                     </connections>

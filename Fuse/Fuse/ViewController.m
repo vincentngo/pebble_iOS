@@ -49,7 +49,7 @@ static NSString * const CardsServiceType = @"cards-service";
 //    for (MCPeerID *pID in self.collectedPeers)
 //    {
 //        if ([pID.displayName isEqualToString:peerID.displayName])
-//            [self.collectedPeers removeObject:pID];
+//            [self.collectedPeers removeObject:pI\D];
 //    }
 }
 
