@@ -6,6 +6,8 @@ MenuLayer* mainMenu;
 
 void showDetail(MenuIndex* index); // Defined in detailView.c
 static void setUpListWindow();
+static void sendToIOS(char *msg);
+
 
 char hex[] = "0\0001\0002\0003\0004\0005\0006\0007\0008\0009\000A\000B\000C\000D\000E\000F";
 
@@ -17,6 +19,12 @@ MenuLayerCallbacks cbacks; // The Pebble API documentation says this should be l
 //Intro Text
 static TextLayer *text_layer;
 static TextLayer *title_layer;
+
+// will keep track of the peers
+static char * firstPeerName = "";
+static char * secondPeerName = "";
+static char * thirdPeerName = "";
+static char * fourthPeerName = "";
 
 //Test
 static Layer *layer;
@@ -59,12 +67,23 @@ void out_sent_handler(DictionaryIterator *sent, void *context) {
 
  void in_received_handler(DictionaryIterator *iter, void *context) {
   // Check for fields you expect to receive
-  Tuple *text_tuple = dict_find(iter, AKEY_TEXT);
 
-  // Act on the found fields received
-  if (text_tuple) {
-    text_layer_set_text(text_layer, text_tuple->value->cstring);
-  }
+  // This is for the case where we get an OK from iOS after doing a mainMenu_select_click
+  Tuple *zeroTuple = dict_find(iter, 0);
+  if (zeroTuple)
+    return;
+
+  // this if for the "GetPeers" case
+  Tuple *firstTuple = dict_find(iter, 1);
+  Tuple *secondTuple = dict_find(iter, 2);
+  Tuple *thirdTuple = dict_find(iter, 3);
+  Tuple *fourthTuple = dict_find(iter, 4);
+
+  firstPeerName = firstTuple? firstTuple->value->cstring : "";
+  secondPeerName = secondTuple? secondTuple->value->cstring : "";
+  thirdPeerName = thirdTuple? thirdTuple->value->cstring : "";
+  fourthPeerName = fourthTuple? fourthTuple->value->cstring : "";
+
 
 }
 
@@ -74,12 +93,41 @@ void out_sent_handler(DictionaryIterator *sent, void *context) {
 //===========================================================
 void mainMenu_select_click(struct MenuLayer *menu_layer, MenuIndex *cell_index, void *callback_context)
 { // Show the detail view when select is pressed.
-  showDetail(cell_index); // Defined in detailView.c
+  //showDetail(cell_index); // Defined in detailView.c
+  
+  if (cell_index->row == 0)
+    sendToIOS(firstPeerName);
+  else if (cell_index->row == 1)
+    sendToIOS(secondPeerName);
+  else if (cell_index->row == 2)
+    sendToIOS(thirdPeerName);
+  else if (cell_index->row == 3)
+    sendToIOS(fourthPeerName);
+
+
+
+
+
+
+
 }
 void mainMenu_draw_row(GContext *ctx, const Layer *cell_layer, MenuIndex *cell_index, void *callback_context)
-{ // Adding the row number as text on the row cell.
+{ 
+  
+  char *rowText = "";
+  if (cell_index->row == 0)
+    rowText = firstPeerName;
+  else if (cell_index->row == 1)
+    rowText = secondPeerName;
+  else if (cell_index->row == 2)
+    rowText = thirdPeerName;
+  else if (cell_index->row == 3)
+    rowText = fourthPeerName;
+
+
+  // Adding the row number as text on the row cell.
   graphics_context_set_text_color(ctx, GColorBlack); // This is important.
-  graphics_draw_text(ctx, "contacts...", fonts_get_system_font(FONT_KEY_GOTHIC_14), GRect(0,0,layer_get_frame(cell_layer).size.w,layer_get_frame(cell_layer).size.h), GTextOverflowModeTrailingEllipsis, GTextAlignmentCenter, NULL);
+  graphics_draw_text(ctx, rowText, fonts_get_system_font(FONT_KEY_GOTHIC_14), GRect(0,0,layer_get_frame(cell_layer).size.w,layer_get_frame(cell_layer).size.h), GTextOverflowModeTrailingEllipsis, GTextAlignmentCenter, NULL);
   // Just saying layer_get_frame(cell_layer) for the 4th argument doesn't work.  Probably because the GContext is relative to the cell already, but the cell_layer.frame is relative to the menulayer or the screen or something.
 }
 void mainMenu_draw_header(GContext *ctx, const Layer *cell_layer, uint16_t section_index, void *callback_context)
@@ -93,16 +141,32 @@ int16_t mainMenu_get_header_height(struct MenuLayer *menu_layer, uint16_t sectio
 }
 int16_t mainMenu_get_cell_height(struct MenuLayer *menu_layer, MenuIndex *cell_index, void *callback_context)
 { // Always 20px tall for a normal cell
-  return 20;
+  return 35;
 }
 uint16_t mainMenu_get_num_rows_in_section(struct MenuLayer *menu_layer, uint16_t section_index, void *callback_context)
 { // 3, 6, and 9 rows per section
-  return (section_index+1)*3;
+  return 4;
 }
 uint16_t mainMenu_get_num_sections(struct MenuLayer *menu_layer, void *callback_context)
 { // Always 3 sections
   return 1;
 }
+
+// sends a message back to iOS. Msg can be found at key = 1.
+static void sendToIOS(char *msg)
+{
+    // Get out a dictionary iterator for the outgoing message. 
+    DictionaryIterator *iter;
+    app_message_outbox_begin(&iter);
+
+    /* This will write a key value pair (key: 1, value: "GetPeers") to the dictionary */
+    /* The iOS app expects this key-val pair to be the first message sent from the first screen of the watchapp */
+    dict_write_cstring(iter, 1, msg);
+
+    app_message_outbox_send();
+}
+
+
 
 
 //===========================================================
@@ -111,34 +175,24 @@ uint16_t mainMenu_get_num_sections(struct MenuLayer *menu_layer, void *callback_
 
 static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
 
-bool tmp = strcmp("Find\nPeers",text_layer_get_text(text_layer));
+bool onFirstScreen = !strcmp("Find\nPeers",text_layer_get_text(text_layer));
 
-  if(tmp == 0) {
-    Layer *window_layer = window_get_root_layer(window);
-    //First remove title, text_layer, and circle indicator.
-    // set_introLayerHidden(true);
+
+  if (onFirstScreen) 
+  {
     setUpListWindow();
 
-    // layer_add_child(window_get_root_layer(window), menu_layer_get_layer(mainMenu));
+    // Get out a dictionary iterator for the outgoing message. 
+    DictionaryIterator *iter;
+    app_message_outbox_begin(&iter);
 
-    //Get the data of all user contacts found.
-
-   // if (currentText_layer)
-
-    // //Get out a dictionary iterator for the outgoing message. 
-    // DictionaryIterator *iter;
-    // app_message_outbox_begin(&iter);
-
-    // Tuplet value = TupletInteger(1, 42);
-    // // Tuplet value = TupletCString("testString", "test23213213");
-    // dict_write_tuplet(iter, &value);
-
-    // app_message_outbox_send();
-
-    //build the menu view.
-
-
+    /* This will write a key value pair (key: 1, value: "GetPeers") to the dictionary */
+    /* The iOS app expects this key-val pair to be the first message sent from the first screen of the watchapp */
+    dict_write_cstring(iter, 1, "GetPeers");
+    app_message_outbox_send();
   }
+
+  
 
 }
 

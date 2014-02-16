@@ -91,27 +91,47 @@ static NSString * const CardsServiceType = @"cards-service";
     [self.connectedWatch appMessagesAddReceiveUpdateHandler:^BOOL(PBWatch *watch, NSDictionary *update)
     {
         NSLog(@"Inside AppMessage Receive Handler. Received NSDictionary update: %@", update);
+
+        
+        
         /*
          * Receive the update dictionary from the Pebbble. Update NSDictionary could either be:
          * 1. A dict with one key = [NSNumber 1] and value "GetPeers"
          * 2. A dict with one key = [NSNumber 1] and value = selected name from the peers list shown on the pebble (string)
          */
         
-        /* Send the most recently collected peers (just their names) */
+        // Grab the first value from the dictionary
+        NSString *firstValue = [update objectForKey:[NSNumber numberWithInteger:1]];
+        bool askingForPeers = [firstValue isEqualToString:@"GetPeers"];
+        
         NSMutableDictionary *pebbleUpdate = [[NSMutableDictionary alloc] init];
-        if (self.collectedPeers && [self.collectedPeers count])
+        
+        if (askingForPeers)
         {
-            for (int i = 0; i < self.collectedPeers.count; i++)
+            /* Send the most recently collected peers (just their names) */
+            if (self.collectedPeers && [self.collectedPeers count])
             {
-                MCPeerID *pID = self.collectedPeers[i];
-                NSNumber *key = [NSNumber numberWithInteger:i];
-                NSString *justName = [self getNameFromPeerID:pID];
-                [pebbleUpdate setObject:justName forKey:key];
+                for (int i = 0; i < self.collectedPeers.count; i++)
+                {
+                    MCPeerID *pID = self.collectedPeers[i];
+                    NSNumber *key = [NSNumber numberWithInteger:i];
+                    NSString *justName = [self getNameFromPeerID:pID];
+                    [pebbleUpdate setObject:justName forKey:key];
+                }
+            }
+            else
+            {
+                [pebbleUpdate setObject:@"NoneFound" forKey:[NSNumber numberWithInteger:0]];
             }
         }
-        else
+        else /* Asking to add a specific name to contacts */
         {
-            [pebbleUpdate setObject:@"NoneFound" forKey:[NSNumber numberWithInteger:0]];
+            // first value holds the contact name
+            NSLog(@"Pebble has asked to save the contact %@", firstValue);
+            
+            // If we're here, the watchapp selected a peer from the list, sent back the name, and now waits for a success indication.
+            // We must: send back value NSNumber 1 (found at key NSNumber 1) to indicate success
+            [pebbleUpdate setObject:[NSNumber numberWithInteger:0] forKey:[NSNumber numberWithInteger:1]];
         }
         
         NSLog(@"Sending AppMessage with a NSDictionary message: %@", pebbleUpdate);
