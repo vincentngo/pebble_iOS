@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <PebbleKit/PebbleKit.h>
 #import <MultipeerConnectivity/MultipeerConnectivity.h>
+#import "AppDelegate.h"
 
 @interface ViewController : UIViewController <MCNearbyServiceAdvertiserDelegate, UIActionSheetDelegate,
 MCSessionDelegate, MCNearbyServiceBrowserDelegate, MCBrowserViewControllerDelegate>
@@ -35,5 +36,9 @@ MCSessionDelegate, MCNearbyServiceBrowserDelegate, MCBrowserViewControllerDelega
 
 @property (strong, nonatomic) NSString * lastContactName;
 @property (strong, nonatomic) NSString * lastContactPhone;
+
+@property (nonatomic, strong) AppDelegate *appDelegate;
+@property (nonatomic, strong) PBWatch *connectedWatch;
+@property (nonatomic, strong) NSDictionary *personalProfile;
 
 @end

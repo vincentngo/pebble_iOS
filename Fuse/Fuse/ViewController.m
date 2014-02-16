@@ -7,13 +7,11 @@
 //
 
 #import "ViewController.h"
-#import "AppDelegate.h"
+
 
 @interface ViewController ()
 
-@property (nonatomic, strong) AppDelegate *appDelegate;
-@property (nonatomic, strong) PBWatch *connectedWatch;
-@property (nonatomic, strong) NSDictionary *personalProfile;
+
 
 @end
 
@@ -56,6 +54,8 @@ static NSString * const CardsServiceType = @"cards-service";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setup];
+ 
     
     self.personalProfile = [[NSUserDefaults standardUserDefaults] objectForKey:@"profile"];
     NSLog(@"after i clicked it: %@", self.personalProfile);
@@ -113,8 +113,8 @@ static NSString * const CardsServiceType = @"cards-service";
 
 -(void)setup
 {
-    self.personalProfile = [[NSUserDefaults standardUserDefaults] objectForKey:@"profile"];
-    NSLog(@"personalProfile: %@", self.personalProfile);
+//    self.personalProfile = [[NSUserDefaults standardUserDefaults] objectForKey:@"profile"];
+//    NSLog(@"In setup, user defaults (personal profile): %@", self.personalProfile);
     
     NSString *displayName = [NSString stringWithFormat:@"%@|%@", self.personalProfile[@"name"], self.personalProfile[@"phoneNumber"]];
     
@@ -144,7 +144,6 @@ static NSString * const CardsServiceType = @"cards-service";
 -(void)awakeFromNib
 {
     NSLog(@"called awakeFromNib");
-    [self setup];
 }
 
 

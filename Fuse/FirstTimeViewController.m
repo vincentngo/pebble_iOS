@@ -49,14 +49,16 @@
 //    [self performSegueWithIdentifier:@"startSending" sender:sender];
 }
 
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-//{
-//    if ([[segue identifier] isEqualToString:@"startSending"]) {
-//        
-//        // Get destination view
-//        ViewController *vc = [segue destinationViewController];
-//        
-//    
-//    }
-//}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    NSLog(@"calling prepareForSegue at FirstTimeViewController");
+    if ([[segue identifier] isEqualToString:@"startSending"]) {
+        NSLog(@"startSending button segue was called");
+        // Get destination view
+        ViewController *vc = [segue destinationViewController];
+        vc.personalProfile = @{@"name": self.textFieldName.text, @"phoneNumber": self.textFieldNumber.text};
+        
+    
+    }
+}
 @end
