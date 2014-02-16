@@ -162,9 +162,12 @@ static NSString * const CardsServiceType = @"cards-service";
 {
     for (MCPeerID *pID in self.collectedPeers)
     {
-        if ([pID.displayName isEqualToString:name])
+        NSArray * parts = [pID.displayName componentsSeparatedByString:@"|"];
+
+        NSLog(@"going over this pID = %@", pID.displayName);
+        
+        if ([pID.displayName isEqualToString:parts[0]])
         {
-            NSArray * parts = [pID.displayName componentsSeparatedByString:@"|"];
             return parts[1];
         }
     }

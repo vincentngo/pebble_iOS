@@ -249,7 +249,7 @@
 				ORGANIZATIONNAME = "Vincent Ngo";
 				TargetAttributes = {
 					10D0416718AF4EA3006A7DFE = {
-						DevelopmentTeam = LZMRHF534X;
+						DevelopmentTeam = 3AC2RN6H7L;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
