@@ -112,7 +112,7 @@ static NSString * const CardsServiceType = @"cards-service";
             /* Send the most recently collected peers (just their names) */
             if (self.collectedPeers && [self.collectedPeers count])
             {
-
+                    
                 for (int i = 0; i < self.collectedPeers.count && self.collectedPeers.count < 3; i++)
                 {
                     MCPeerID *pID = self.collectedPeers[i];
