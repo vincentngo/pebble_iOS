@@ -126,11 +126,8 @@ void mainMenu_select_click(struct MenuLayer *menu_layer, MenuIndex *cell_index, 
     sendToIOS(firstPeerName);
   else if (cell_index->row == 1)
     sendToIOS(secondPeerName);
-  // else if (cell_index->row == 2)
-  //   sendToIOS(thirdPeerName);
-  // else if (cell_index->row == 3)
-  //   sendToIOS(fourthPeerName);
 
+  window_stack_pop(true);
 }
 void mainMenu_draw_row(GContext *ctx, const Layer *cell_layer, MenuIndex *cell_index, void *callback_context)
 { 
@@ -140,11 +137,6 @@ void mainMenu_draw_row(GContext *ctx, const Layer *cell_layer, MenuIndex *cell_i
     rowText = firstPeerName;
   else if (cell_index->row == 1)
     rowText = secondPeerName;
-  // else if (cell_index->row == 2)
-  //   rowText = thirdPeerName;
-  // else if (cell_index->row == 3)
-  //   rowText = fourthPeerName;
-
 
   // Adding the row number as text on the row cell.
   graphics_context_set_text_color(ctx, GColorBlack); // This is important.
