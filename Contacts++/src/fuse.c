@@ -111,7 +111,7 @@ uint16_t mainMenu_get_num_sections(struct MenuLayer *menu_layer, void *callback_
 
 static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
 
-bool tmp = strcmp("Connect",text_layer_get_text(text_layer));
+bool tmp = strcmp("Find\nPeers",text_layer_get_text(text_layer));
 
   if(tmp == 0) {
     Layer *window_layer = window_get_root_layer(window);
@@ -178,12 +178,13 @@ static void click_config_provider(void *context) {
 //   window_single_click_subscribe(BUTTON_ID_DOWN, down_click_Menuhandler);
 // }
 
+//Handles drawing shapes.
 static void layer_update_callback(Layer *layer, GContext* ctx) {
 
   GRect bounds = layer_get_frame(layer);
   // Draw the large circle the image will composite with
   graphics_context_set_fill_color(ctx, GColorBlack);
-  graphics_fill_circle(ctx, GPoint(bounds.size.w - 10, bounds.size.h/2 - 4), 5);
+  graphics_fill_circle(ctx, GPoint(bounds.size.w - 15, bounds.size.h/2 - 4), 5);
 }
 
 //===========================================================
@@ -191,11 +192,11 @@ static void layer_update_callback(Layer *layer, GContext* ctx) {
 //===========================================================
 
 static void menuWindow_load(Window *window) {
-
+    //Do something here?
 }
 
 static void menuWindow_unload(Window *window) {
-
+  menu_layer_destroy(mainMenu);
 }
 
 static void setUpListWindow() {
@@ -205,10 +206,10 @@ static void setUpListWindow() {
   GRect bounds = layer_get_bounds(window_layer);
 
   // window_set_click_config_provider(menuWindow2, click_config_providerMenu);
-  // window_set_window_handlers(menuWindow2, (WindowHandlers) {
-  //     .load = menuWindow_load,
-  //     .unload = menuWindow_unload,
-  //   });
+  window_set_window_handlers(menuWindow2, (WindowHandlers) {
+      .load = menuWindow_load,
+      .unload = menuWindow_unload,
+    });
 
   //Initializations for the main menu.
 
@@ -242,14 +243,14 @@ static void window_load(Window *window) {
   GRect bounds = layer_get_bounds(window_layer);
 
   //App initially launched, Prompt with a connect icon. 
-  text_layer = text_layer_create(GRect(0, bounds.size.h/2 - 20, 144, 68));
-  text_layer_set_text(text_layer, "Connect");
-  text_layer_set_font(text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
+  text_layer = text_layer_create(GRect(35, bounds.size.h/2 - 30, 144, 68));
+  text_layer_set_text(text_layer, "Find\nPeers");
+  text_layer_set_font(text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
   text_layer_set_text_alignment(text_layer, GTextAlignmentCenter);
 
   //Title
   title_layer = text_layer_create(GRect(0, 0, 144, 68));
-  text_layer_set_text(title_layer, "CONTACTS");
+  text_layer_set_text(title_layer, "Contacts++");
   text_layer_set_font(title_layer, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
   text_layer_set_text_alignment(title_layer, GTextAlignmentCenter);
 
@@ -266,6 +267,8 @@ static void window_load(Window *window) {
 
 static void window_unload(Window *window) {
   text_layer_destroy(text_layer);
+  text_layer_destroy(title_layer);
+  layer_destroy(layer);
 
 }
 
@@ -296,8 +299,11 @@ static void init(void) {
 
 static void deinit(void) {
   window_destroy(window);
-  window_destroy(menuWindow2);
-  menu_layer_destroy(mainMenu);
+  if (menuWindow2 != NULL) {
+    window_destroy(menuWindow2);
+  }
+
+
 }
 
 int main(void) {

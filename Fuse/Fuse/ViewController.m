@@ -35,15 +35,12 @@ static NSString * const CardsServiceType = @"cards-service";
         NSLog(@"lastContactName: %@", self.lastContactName);
                 NSLog(@"lastContactPhone: %@", self.lastContactPhone);
     }
-    
 }
 
 - (void)browser:(MCNearbyServiceBrowser *)browser lostPeer:(MCPeerID *)peerID
 {
     
 }
-
-
 
 
 #pragma mark - App Messages
