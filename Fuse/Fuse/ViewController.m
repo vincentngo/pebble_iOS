@@ -58,7 +58,7 @@ static NSString * const CardsServiceType = @"cards-service";
     [super viewDidLoad];
     
     self.personalProfile = [[NSUserDefaults standardUserDefaults] objectForKey:@"profile"];
-    
+    NSLog(@"after i clicked it: %@", self.personalProfile);
     
 	self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     self.connectedWatch = self.appDelegate.connectedWatch;
