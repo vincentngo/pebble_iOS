@@ -29,6 +29,8 @@
 		10D041AB18AF52CE006A7DFE /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10D041AA18AF52CE006A7DFE /* CoreMotion.framework */; };
 		10D041AD18AF52D8006A7DFE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10D041AC18AF52D8006A7DFE /* CFNetwork.framework */; };
 		10D041AF18AF52E3006A7DFE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10D041AE18AF52E3006A7DFE /* MessageUI.framework */; };
+		10F78A9C18B0F17B007E9240 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10F78A9B18B0F17B007E9240 /* AddressBook.framework */; };
+		10F78A9E18B0F180007E9240 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10F78A9D18B0F180007E9240 /* AddressBookUI.framework */; };
 		3D97827318AF6AF50074C803 /* PebbleKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D97827218AF6AF50074C803 /* PebbleKit.framework */; };
 		3D97827618AF6DEB0074C803 /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D97827518AF6DEB0074C803 /* MultipeerConnectivity.framework */; };
 /* End PBXBuildFile section */
@@ -72,6 +74,8 @@
 		10D041AA18AF52CE006A7DFE /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		10D041AC18AF52D8006A7DFE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		10D041AE18AF52E3006A7DFE /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		10F78A9B18B0F17B007E9240 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		10F78A9D18B0F180007E9240 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		3D97827218AF6AF50074C803 /* PebbleKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PebbleKit.framework; sourceTree = "<group>"; };
 		3D97827518AF6DEB0074C803 /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -81,6 +85,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10F78A9E18B0F180007E9240 /* AddressBookUI.framework in Frameworks */,
+				10F78A9C18B0F17B007E9240 /* AddressBook.framework in Frameworks */,
 				3D97827618AF6DEB0074C803 /* MultipeerConnectivity.framework in Frameworks */,
 				10D041AF18AF52E3006A7DFE /* MessageUI.framework in Frameworks */,
 				10D041AD18AF52D8006A7DFE /* CFNetwork.framework in Frameworks */,
@@ -131,6 +137,8 @@
 		10D0416A18AF4EA3006A7DFE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				10F78A9D18B0F180007E9240 /* AddressBookUI.framework */,
+				10F78A9B18B0F17B007E9240 /* AddressBook.framework */,
 				3D97827518AF6DEB0074C803 /* MultipeerConnectivity.framework */,
 				3D97827218AF6AF50074C803 /* PebbleKit.framework */,
 				10D041AE18AF52E3006A7DFE /* MessageUI.framework */,
