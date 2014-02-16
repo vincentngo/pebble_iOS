@@ -2,7 +2,7 @@
 
 static Window *window;
 static Window *menuWindow2;
-MenuLayer* mainMenu;
+static MenuLayer* mainMenu;
 
 void showDetail(MenuIndex* index); // Defined in detailView.c
 static void setUpListWindow();
@@ -83,6 +83,11 @@ void out_sent_handler(DictionaryIterator *sent, void *context) {
   secondPeerName = secondTuple? secondTuple->value->cstring : "";
   thirdPeerName = thirdTuple? thirdTuple->value->cstring : "";
   fourthPeerName = fourthTuple? fourthTuple->value->cstring : "";
+
+  if (mainMenu)
+  {
+    menu_layer_reload_data(mainMenu);
+  }
 
 
 }
