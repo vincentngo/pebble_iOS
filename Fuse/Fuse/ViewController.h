@@ -11,7 +11,7 @@
 #import <MultipeerConnectivity/MultipeerConnectivity.h>
 #import "AppDelegate.h"
 
-@interface ViewController : UIViewController <MCNearbyServiceAdvertiserDelegate, UIActionSheetDelegate,
+@interface ViewController : UITableViewController <MCNearbyServiceAdvertiserDelegate, UIActionSheetDelegate,
 MCSessionDelegate, MCNearbyServiceBrowserDelegate, MCBrowserViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *rxLabel;
@@ -20,6 +20,7 @@ MCSessionDelegate, MCNearbyServiceBrowserDelegate, MCBrowserViewControllerDelega
 
 @property (weak, nonatomic) NSMutableArray * mutableBlockedPeers;
 
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic, strong) NSArray *lastResultArray;
 @property (nonatomic, strong) MCBrowserViewController *browserVC;

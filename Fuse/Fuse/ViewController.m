@@ -11,7 +11,8 @@
 
 @interface ViewController ()
 
-
+@property (nonatomic, strong) NSMutableDictionary *myContacts;
+@property (nonatomic, strong) NSMutableArray *listOfContacts;
 
 @end
 
@@ -71,6 +72,7 @@ static NSString * const CardsServiceType = @"cards-service";
     [super viewDidLoad];
     [self setup];
     
+    self.listOfContacts = [[NSMutableArray alloc]init];
     self.personalProfile = [[NSUserDefaults standardUserDefaults] objectForKey:@"profile"];
     
 	self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -135,6 +137,10 @@ static NSString * const CardsServiceType = @"cards-service";
             // If we're here, the watchapp selected a peer from the list, sent back the name, and now waits for a success indication.
             // We must: send back value NSNumber 1 (found at key NSNumber 1) to indicate success
             [pebbleUpdate setObject:[NSNumber numberWithInteger:0] forKey:[NSNumber numberWithInteger:1]];
+            
+            [self.myContacts setObject:[self getPhoneNumber:firstValue] forKey:firstValue];
+            [self.listOfContacts addObject:firstValue];
+            [self.tableView reloadData];
         }
         
         NSLog(@"Sending AppMessage with a NSDictionary message: %@", pebbleUpdate);
@@ -148,6 +154,20 @@ static NSString * const CardsServiceType = @"cards-service";
         
         return YES;
     }];
+    
+}
+
+-(NSString *)getPhoneNumber:(NSString *)name
+{
+    for (MCPeerID *pID in self.collectedPeers)
+    {
+        if ([pID.displayName isEqualToString:name])
+        {
+            NSArray * parts = [pID.displayName componentsSeparatedByString:@"|"];
+            return parts[1];
+        }
+    }
+    return @"";
     
 }
 
@@ -272,6 +292,88 @@ static NSString * const CardsServiceType = @"cards-service";
 {
     NSLog(@"performing push segue...");
 }
+
+
+#pragma mark- Table view 
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 0;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.myContacts count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    NSInteger row = [indexPath row];
+    NSString *name = [self.listOfContacts objectAtIndex:row];
+    NSString *number = [self.myContacts objectForKey:name];
+    
+    cell.textLabel.text = [NSString stringWithFormat:@"%@", name];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", number];
+    
+    return cell;
+}
+
+/*
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
+
+/*
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ }
+ else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
+
+/*
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
+
+/*
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
+
+/*
+ #pragma mark - Navigation
+ 
+ // In a story board-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ 
+ */
+
 
 
 @end
