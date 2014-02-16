@@ -108,12 +108,13 @@ void out_sent_handler(DictionaryIterator *sent, void *context) {
 
   if (fourthTuple) {
     fourthPeerName = fourthTuple->value->cstring;
-  }
-
-  if (mainMenu)
+    if (mainMenu)
   {
     menu_layer_reload_data(mainMenu);
   }
+  }
+
+  
 }
 
 //===========================================================
