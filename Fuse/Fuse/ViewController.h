@@ -28,6 +28,9 @@ MCSessionDelegate, MCNearbyServiceBrowserDelegate, MCBrowserViewControllerDelega
 @property (nonatomic, strong) MCSession *mySession;
 @property (nonatomic, strong) MCPeerID *myPeerID;
 
+// Found peers immediately placed here.  On a peer lost event, we remove its id from this collection.
+@property (nonatomic, strong) NSMutableArray *collectedPeers;
+
 @property (strong, nonatomic) NSString * resultMsg;
 
 

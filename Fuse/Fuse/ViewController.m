@@ -25,21 +25,31 @@ static NSString * const CardsServiceType = @"cards-service";
 {
     self.lastPeerInfo = peerID.displayName;
     
-    NSLog(@"displayName: %@", self.lastPeerInfo);
+    NSLog(@"FOUND PEER WITH displayName: %@", self.lastPeerInfo);
     NSArray *parts = [self.lastPeerInfo componentsSeparatedByString:@"|"];
     if (parts.count == 2)
     {
         self.lastContactName = parts[0];
         self.lastContactPhone = parts[1];
-        
-        NSLog(@"lastContactName: %@", self.lastContactName);
-                NSLog(@"lastContactPhone: %@", self.lastContactPhone);
+        NSLog(@"Adding to collection peer with name: %@ and phone: %@", self.lastContactName, self.lastContactPhone);
+        if (self.collectedPeers)
+        {
+            [self.collectedPeers addObject:peerID];
+        }
+        else
+            self.collectedPeers = [[NSMutableArray alloc] initWithObjects:peerID, nil];
     }
 }
 
 - (void)browser:(MCNearbyServiceBrowser *)browser lostPeer:(MCPeerID *)peerID
 {
+    if (!self.collectedPeers) return;
     
+    for (MCPeerID *pID in self.collectedPeers)
+    {
+        if ([pID.displayName isEqualToString:peerID.displayName])
+            [self.collectedPeers removeObject:pID];
+    }
 }
 
 
@@ -49,54 +59,69 @@ static NSString * const CardsServiceType = @"cards-service";
 
 #pragma mark - AppSync
 
+-(NSString *)getNameFromPeerID:(MCPeerID *)peerID
+{
+    NSArray *parts = [peerID.displayName componentsSeparatedByString:@"|"];
+    return parts[0];
+
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self setup];
- 
     
     self.personalProfile = [[NSUserDefaults standardUserDefaults] objectForKey:@"profile"];
-    NSLog(@"after i clicked it: %@", self.personalProfile);
     
 	self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     self.connectedWatch = self.appDelegate.connectedWatch;
     
     //Check if Launch was sucessful
-    [self.connectedWatch appMessagesLaunch:^(PBWatch *watch, NSError *error) {
+    [self.connectedWatch appMessagesLaunch:^(PBWatch *watch, NSError *error)
+    {
             if (!error) {
                 NSLog(@"Successfully launched app.");
             }
             else {
                 NSLog(@"Error launching app - Error: %@", error);
             }
-        }
-     ];
+    }];
     
     
     [self.connectedWatch appMessagesAddReceiveUpdateHandler:^BOOL(PBWatch *watch, NSDictionary *update)
     {
-        if ([self.lastContactName length] == 0)
+        NSLog(@"Inside AppMessage Receive Handler. Received NSDictionary update: %@", update);
+        /*
+         * Receive the update dictionary from the Pebbble. Update NSDictionary could either be:
+         * 1. A dict with one key = [NSNumber 1] and value "GetPeers"
+         * 2. A dict with one key = [NSNumber 1] and value = selected name from the peers list shown on the pebble (string)
+         */
+        
+        /* Send the most recently collected peers (just their names) */
+        NSMutableDictionary *pebbleUpdate = [[NSMutableDictionary alloc] init];
+        if (self.collectedPeers && [self.collectedPeers count])
         {
-            NSLog(@"No contacts found in area.");
-            return NO;
+            for (int i = 0; i < self.collectedPeers.count; i++)
+            {
+                MCPeerID *pID = self.collectedPeers[i];
+                NSNumber *key = [NSNumber numberWithInteger:i];
+                NSString *justName = [self getNameFromPeerID:pID];
+                [pebbleUpdate setObject:justName forKey:key];
+            }
         }
-        NSLog(@"recieve %@", self.lastContactName);
+        else
+        {
+            [pebbleUpdate setObject:@"NoneFound" forKey:[NSNumber numberWithInteger:0]];
+        }
         
-//        NSDictionary *pebbleUpdate = @{@"Name": self.lastContactName };
-        NSDictionary *pebbleUpdate = @{@1: self.lastContactName };
-        [self.connectedWatch appMessagesPushUpdate:pebbleUpdate onSent:^(PBWatch *watch, NSDictionary *update, NSError *error) {
-            
-            if(!error)
-            {
-                NSLog(@"Succesfuly sent to the pebble!");
-            }
+        NSLog(@"Sending AppMessage with a NSDictionary message: %@", pebbleUpdate);
+        [self.connectedWatch appMessagesPushUpdate:pebbleUpdate onSent:^(PBWatch *watch, NSDictionary *update, NSError *error)
+        {
+            if(error)
+                NSLog(@"Failed to send to the Pebble!");
             else
-            {
-                NSLog(@"Failed to send to the Pebble");
-            }
-            
+                NSLog(@"Succesfuly sent to the pebble!");
         }];
-        
         
         return YES;
     }];
@@ -111,12 +136,9 @@ static NSString * const CardsServiceType = @"cards-service";
 
 -(void)setup
 {
-//    self.personalProfile = [[NSUserDefaults standardUserDefaults] objectForKey:@"profile"];
-//    NSLog(@"In setup, user defaults (personal profile): %@", self.personalProfile);
     
     NSString *displayName = [NSString stringWithFormat:@"%@|%@", self.personalProfile[@"name"], self.personalProfile[@"phoneNumber"]];
     
-    NSLog(@"ViewController.m setup method called because awakeFromNib.");
     // setup peer ID
     self.myPeerID = [[MCPeerID alloc] initWithDisplayName:displayName];
     
