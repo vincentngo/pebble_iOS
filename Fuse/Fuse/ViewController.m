@@ -56,6 +56,10 @@ static NSString * const CardsServiceType = @"cards-service";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.personalProfile = [[NSUserDefaults standardUserDefaults] objectForKey:@"profile"];
+    
+    
 	self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     self.connectedWatch = self.appDelegate.connectedWatch;
     
@@ -71,8 +75,8 @@ static NSString * const CardsServiceType = @"cards-service";
      ];
     
     
-    [self.connectedWatch appMessagesAddReceiveUpdateHandler:^BOOL(PBWatch *watch, NSDictionary *update) {
-        
+    [self.connectedWatch appMessagesAddReceiveUpdateHandler:^BOOL(PBWatch *watch, NSDictionary *update)
+    {
         if ([self.lastContactName length] == 0)
         {
             NSLog(@"No contacts found in area.");
@@ -170,6 +174,7 @@ static NSString * const CardsServiceType = @"cards-service";
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    self.personalProfile = [[NSUserDefaults standardUserDefaults] objectForKey:@"profile"];
 }
 
 

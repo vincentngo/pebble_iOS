@@ -41,9 +41,10 @@
     NSDictionary *dict = @{@"name": self.textFieldName.text, @"phoneNumber": self.textFieldNumber.text};
     
     //Save your profile in standardUserDefaults
-    [[NSUserDefaults standardUserDefaults]
-     setObject:dict forKey:@"profile"];
+    [[NSUserDefaults standardUserDefaults] setObject:dict forKey:@"profile"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    NSLog(@"profile before pressing startSharing: %@", dict);
     
 //    [self performSegueWithIdentifier:@"startSending" sender:sender];
 }
