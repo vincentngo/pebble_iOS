@@ -7,6 +7,7 @@
 static Window *window;
 static Window *menuWindow2;
 static MenuLayer* mainMenu;
+static int numberOfRows = 0;
 
 void showDetail(MenuIndex* index); // Defined in detailView.c
 static void setUpListWindow();
@@ -95,14 +96,14 @@ void out_sent_handler(DictionaryIterator *sent, void *context) {
 
   //Sending two contacts at every connection.
   if (firstTuple) {
-    firstPeerName = firstTuple->value->cstring;
+    numberOfRows = 1;
+    firstPeerName = (firstTuple) ? firstTuple->value->cstring : "";
   }
 
   if (secondTuple) {
-    secondPeerName = secondTuple->value->cstring;
+    numberOfRows = 2;
+    secondPeerName = (secondTuple) ? secondTuple->value->cstring : "";
   }
-  
-
 
   if (mainMenu)
   {
@@ -165,7 +166,7 @@ int16_t mainMenu_get_cell_height(struct MenuLayer *menu_layer, MenuIndex *cell_i
 }
 uint16_t mainMenu_get_num_rows_in_section(struct MenuLayer *menu_layer, uint16_t section_index, void *callback_context)
 { // 3, 6, and 9 rows per section
-  return 2;
+  return numberOfRows;
 }
 uint16_t mainMenu_get_num_sections(struct MenuLayer *menu_layer, void *callback_context)
 { // Always 3 sections
@@ -351,7 +352,7 @@ static void init(void) {
   //TODO: define a marco fo rthis.
   // Layer *window_layer = window_get_root_layer(window);
   // GRect bounds = layer_get_bounds(window_layer);
-
+  numberOfRows = 0;
    app_message_register_inbox_received(in_received_handler);
    app_message_register_inbox_dropped(in_dropped_handler);
    app_message_register_outbox_sent(out_sent_handler);
