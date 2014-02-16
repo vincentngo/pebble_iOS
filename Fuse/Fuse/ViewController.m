@@ -72,6 +72,7 @@ static NSString * const CardsServiceType = @"cards-service";
     [super viewDidLoad];
     [self setup];
     
+    self.myContacts = [[NSMutableDictionary alloc] init];
     self.listOfContacts = [[NSMutableArray alloc]init];
     self.personalProfile = [[NSUserDefaults standardUserDefaults] objectForKey:@"profile"];
     
@@ -300,11 +301,12 @@ static NSString * const CardsServiceType = @"cards-service";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSLog(@"number row %d", [self.myContacts count]);
     return [self.myContacts count];
 }
 
@@ -318,6 +320,7 @@ static NSString * const CardsServiceType = @"cards-service";
     NSString *number = [self.myContacts objectForKey:name];
     
     cell.textLabel.text = [NSString stringWithFormat:@"%@", name];
+    NSLog(@"number is %@", number);
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", number];
     
     return cell;
