@@ -125,7 +125,7 @@ static NSString * const CardsServiceType = @"cards-service";
                 
                 if (self.collectedPeers.count == 1)
                 {
-                    [pebbleUpdate setObject:@"Ben Johnston|Daniel Alab|Jouella Fabe" forKey:[NSNumber numberWithInteger:2]];
+                    [pebbleUpdate setObject:@"Ben Johnston|" forKey:[NSNumber numberWithInteger:2]];
 //                    [pebbleUpdate setObject:@"Daniel Alababuh" forKey:[NSNumber numberWithInteger:3]];
 //                    [pebbleUpdate setObject:@"Eddy Boss" forKey:[NSNumber numberWithInteger:4]];
                 }

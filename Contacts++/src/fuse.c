@@ -39,71 +39,6 @@ enum {
         };
 
 //===========================================================
-//  Utility string methods
-//===========================================================
-char *strdup(const char *str)
-{
-    int n = strlen(str) + 1;
-    char *dup = malloc(n);
-    if(dup)
-    {
-        strcpy(dup, str);
-    }
-    return dup;
-}
-        
-char** str_split(char* a_str, const char a_delim)
-{
-    char** result    = 0;
-    size_t count     = 0;
-    char* tmp        = a_str;
-    char* last_comma = 0;
-    char delim[2];
-    delim[0] = a_delim;
-    delim[1] = 0;
-
-    /* Count how many elements will be extracted. */
-    while (*tmp)
-    {
-        if (a_delim == *tmp)
-        {
-            count++;
-            last_comma = tmp;
-        }
-        tmp++;
-    }
-
-    /* Add space for trailing token. */
-    count += last_comma < (a_str + strlen(a_str) - 1);
-
-    /* Add space for terminating null string so caller
-       knows where the list of returned strings ends. */
-    count++;
-
-    result = malloc(sizeof(char*) * count);
-
-    if (result)
-    {
-        size_t idx  = 0;
-        char* token = strtok(a_str, delim);
-
-        while (token)
-        {
-      
-            *(result + idx++) = strdup(token);
-            token = strtok(0, delim);
-        }
-        *(result + idx) = 0;
-    }
-
-    return result;
-}
-
-
-
-
-
-//===========================================================
 //Set introduction layers to hidden
 //===========================================================
 void set_introLayerHidden(bool hidden)
@@ -153,50 +88,32 @@ void out_sent_handler(DictionaryIterator *sent, void *context) {
   if (zeroTuple)
     return;
 
-  // this if for the "GetPeers" case
   Tuple *firstTuple = dict_find(iter, 1);
-
-  // name2|name3|name4
   Tuple *secondTuple = dict_find(iter, 2);
-  if (secondTuple) {
-    char *string = secondTuple->value->cstring;
-    char **names = str_split(string, '|');
+  Tuple *thirdTuple = dict_find(iter, 3);
+  Tuple *fourthTuple = dict_find(iter, 4);
 
-    if (names)
-    {
-      int i;
-      for (i = 0; *(names + i); i++){
-        if (i == 0){
-            secondPeerName = strcpy(secondPeerName, *(names + i));
-        }else if (i == 1){
-            thirdPeerName = strcpy(thirdPeerName, *(names + i));
-        }else if (i == 2){
-            fourthPeerName = strcpy(fourthPeerName, *(names + i));
-        }else{
-          break;
-        }
-        
-        free(*(names + i));
-      }
-        free(names);
-      }
-
+  //Sending two contacts at every connection.
+  if (firstTuple) {
+    firstPeerName = firstTuple->value->cstring;
   }
 
-  // Tuple *thirdTuple = dict_find(iter, 3);
-  // Tuple *fourthTuple = dict_find(iter, 4);
+  if (secondTuple) {
+    secondPeerName = secondTuple->value->cstring;
+  }
+  
+  if (thirdTuple) {
+    thirdPeerName = thirdTuple->value->cstring;
+  }
 
-  firstPeerName = firstTuple? firstTuple->value->cstring : "";
-  // secondPeerName = secondTuple? secondTuple->value->cstring : "";
-  // thirdPeerName = thirdTuple? thirdTuple->value->cstring : "";
-  // fourthPeerName = fourthTuple? fourthTuple->value->cstring : "";
+  if (fourthTuple) {
+    fourthPeerName = fourthTuple->value->cstring;
+  }
 
   if (mainMenu)
   {
     menu_layer_reload_data(mainMenu);
   }
-
-
 }
 
 //===========================================================
