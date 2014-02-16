@@ -24,6 +24,7 @@ static NSString * const CardsServiceType = @"cards-service";
 - (void)browser:(MCNearbyServiceBrowser *)browser foundPeer:(MCPeerID *)peerID withDiscoveryInfo:(NSDictionary *)info
 {
     self.lastPeerInfo = peerID.displayName;
+    
     NSLog(@"displayName: %@", self.lastPeerInfo);
     NSArray *parts = [self.lastPeerInfo componentsSeparatedByString:@"|"];
     if (parts.count == 2)
