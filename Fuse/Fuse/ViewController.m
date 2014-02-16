@@ -158,6 +158,14 @@ static NSString * const CardsServiceType = @"cards-service";
     
 }
 
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *keyName = self.listOfContacts[indexPath.row];
+    NSString *phoneNumber = [@"telprompt://" stringByAppendingString:self.myContacts[keyName]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
+}
+
 -(NSString *)getPhoneNumber:(NSString *)name
 {
     for (MCPeerID *pID in self.collectedPeers)
