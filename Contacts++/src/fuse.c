@@ -102,22 +102,15 @@ void out_sent_handler(DictionaryIterator *sent, void *context) {
     secondPeerName = secondTuple->value->cstring;
   }
   
-  // if (thirdTuple) {
-  //   thirdPeerName = thirdTuple->value->cstring;
-  // }
 
-  // if (fourthTuple) {
-  //   fourthPeerName = fourthTuple->value->cstring;
-  //     if (mainMenu)
-  //     {
-  //       menu_layer_reload_data(mainMenu);
-  //     }
-  // }
 
   if (mainMenu)
   {
     menu_layer_reload_data(mainMenu);
   }
+  
+
+  
 }
 
 //===========================================================
