@@ -125,9 +125,21 @@ static NSString * const CardsServiceType = @"cards-service";
                 
                 if (self.collectedPeers.count == 1)
                 {
-                    [pebbleUpdate setObject:@"Ben Johnston|" forKey:[NSNumber numberWithInteger:2]];
-//                    [pebbleUpdate setObject:@"Daniel Alababuh" forKey:[NSNumber numberWithInteger:3]];
-//                    [pebbleUpdate setObject:@"Eddy Boss" forKey:[NSNumber numberWithInteger:4]];
+                    [pebbleUpdate setObject:@"Ben Johnston" forKey:[NSNumber numberWithInteger:2]];
+                    NSLog(@"Sending first batch of people %@", pebbleUpdate);
+                    [self.connectedWatch appMessagesPushUpdate:pebbleUpdate onSent:^(PBWatch *watch, NSDictionary *update, NSError *error)
+                     {
+                         if(error)
+                             NSLog(@"Failed to send to the Pebble!");
+                         else
+                             NSLog(@"Succesfuly sent to the pebble!");
+                     }];
+                    
+                    NSLog(@"Sending second batch of people: %@", pebbleUpdate);
+                    [pebbleUpdate setObject:@"Daniel Alabuhbah" forKey:[NSNumber numberWithInteger:3]];
+                    [pebbleUpdate setObject:@"Jouella Fabe" forKey:[NSNumber numberWithInteger:4]];
+
+
                 }
 
             }
