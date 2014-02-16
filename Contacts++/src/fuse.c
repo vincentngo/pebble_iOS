@@ -90,8 +90,8 @@ void out_sent_handler(DictionaryIterator *sent, void *context) {
 
   Tuple *firstTuple = dict_find(iter, 1);
   Tuple *secondTuple = dict_find(iter, 2);
-  Tuple *thirdTuple = dict_find(iter, 3);
-  Tuple *fourthTuple = dict_find(iter, 4);
+  // Tuple *thirdTuple = dict_find(iter, 3);
+  // Tuple *fourthTuple = dict_find(iter, 4);
 
   //Sending two contacts at every connection.
   if (firstTuple) {
@@ -102,13 +102,17 @@ void out_sent_handler(DictionaryIterator *sent, void *context) {
     secondPeerName = secondTuple->value->cstring;
   }
   
-  if (thirdTuple) {
-    thirdPeerName = thirdTuple->value->cstring;
-  }
+  // if (thirdTuple) {
+  //   thirdPeerName = thirdTuple->value->cstring;
+  // }
 
-  if (fourthTuple) {
-    fourthPeerName = fourthTuple->value->cstring;
-  }
+  // if (fourthTuple) {
+  //   fourthPeerName = fourthTuple->value->cstring;
+  //     if (mainMenu)
+  //     {
+  //       menu_layer_reload_data(mainMenu);
+  //     }
+  // }
 
   if (mainMenu)
   {
@@ -128,16 +132,10 @@ void mainMenu_select_click(struct MenuLayer *menu_layer, MenuIndex *cell_index, 
     sendToIOS(firstPeerName);
   else if (cell_index->row == 1)
     sendToIOS(secondPeerName);
-  else if (cell_index->row == 2)
-    sendToIOS(thirdPeerName);
-  else if (cell_index->row == 3)
-    sendToIOS(fourthPeerName);
-
-
-
-
-
-
+  // else if (cell_index->row == 2)
+  //   sendToIOS(thirdPeerName);
+  // else if (cell_index->row == 3)
+  //   sendToIOS(fourthPeerName);
 
 }
 void mainMenu_draw_row(GContext *ctx, const Layer *cell_layer, MenuIndex *cell_index, void *callback_context)
@@ -148,10 +146,10 @@ void mainMenu_draw_row(GContext *ctx, const Layer *cell_layer, MenuIndex *cell_i
     rowText = firstPeerName;
   else if (cell_index->row == 1)
     rowText = secondPeerName;
-  else if (cell_index->row == 2)
-    rowText = thirdPeerName;
-  else if (cell_index->row == 3)
-    rowText = fourthPeerName;
+  // else if (cell_index->row == 2)
+  //   rowText = thirdPeerName;
+  // else if (cell_index->row == 3)
+  //   rowText = fourthPeerName;
 
 
   // Adding the row number as text on the row cell.
@@ -174,7 +172,7 @@ int16_t mainMenu_get_cell_height(struct MenuLayer *menu_layer, MenuIndex *cell_i
 }
 uint16_t mainMenu_get_num_rows_in_section(struct MenuLayer *menu_layer, uint16_t section_index, void *callback_context)
 { // 3, 6, and 9 rows per section
-  return 4;
+  return 2;
 }
 uint16_t mainMenu_get_num_sections(struct MenuLayer *menu_layer, void *callback_context)
 { // Always 3 sections

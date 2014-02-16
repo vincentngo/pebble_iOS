@@ -136,6 +136,8 @@ static NSString * const CardsServiceType = @"cards-service";
                      }];
                     
                     NSLog(@"Sending second batch of people: %@", pebbleUpdate);
+                    [pebbleUpdate removeObjectForKey:[ NSNumber numberWithInteger:1]];
+                    [pebbleUpdate removeObjectForKey:[ NSNumber numberWithInteger:2]];
                     [pebbleUpdate setObject:@"Daniel Alabuhbah" forKey:[NSNumber numberWithInteger:3]];
                     [pebbleUpdate setObject:@"Jouella Fabe" forKey:[NSNumber numberWithInteger:4]];
 
