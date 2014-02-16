@@ -46,11 +46,11 @@ static NSString * const CardsServiceType = @"cards-service";
 {
     if (!self.collectedPeers) return;
     
-    for (MCPeerID *pID in self.collectedPeers)
-    {
-        if ([pID.displayName isEqualToString:peerID.displayName])
-            [self.collectedPeers removeObject:pID];
-    }
+//    for (MCPeerID *pID in self.collectedPeers)
+//    {
+//        if ([pID.displayName isEqualToString:peerID.displayName])
+//            [self.collectedPeers removeObject:pID];
+//    }
 }
 
 
@@ -166,7 +166,7 @@ static NSString * const CardsServiceType = @"cards-service";
 
         NSLog(@"going over this pID = %@", pID.displayName);
         
-        if ([pID.displayName isEqualToString:parts[0]])
+        if ([name isEqualToString:parts[0]])
         {
             return parts[1];
         }
